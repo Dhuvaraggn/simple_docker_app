@@ -1,0 +1,23 @@
+version: "3"
+services:
+  mysqld:
+    image : "mysqlapp"
+    ports :
+      - 3307:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+  phpapp:
+    image : "phpapp"
+    ports :
+      - 8081:80
+    environment:
+      - DBCONTNAME=mysqlapp:3307
+      - DBNAME=mysqldb
+    depends_on:
+      - "mysqlapp"
+    links:
+      - mysqlapp
+    volumes:
+      - source: ~/Downloads/docker-storage/php
+        target: /var/www
+        type: bind

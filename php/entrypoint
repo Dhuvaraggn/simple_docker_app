@@ -1,0 +1,7 @@
+#!/bin/bash
+set -e
+echo "entrypoint"
+export PASSWORD=$(< /run/secrets/dbpassword)
+export USERNAME=$(< /run/secrets/dbusername)
+set -- apache2-foreground "$@"
+exec "$@"

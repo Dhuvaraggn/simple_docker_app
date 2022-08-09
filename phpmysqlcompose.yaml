@@ -1,0 +1,39 @@
+version: "3.9"
+services:
+  mysqlapp:
+    image : "mysqlapp"
+    deploy:
+      replicas: 1
+    ports :
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - ~/Downloads/docker-storage/mysql:/var/lib/mysql
+  phpapp:
+    image : "phpapp"
+    deploy:
+      replicas: 1
+    ports :
+      - 8080:80
+    environment:
+      - DBCONTNAME=mysqlapp:3306
+      # - USERNAME=/run/secrets/dbusername
+      # - PASSWORD=/run/secrets/dbpassword
+      - DBNAME=mysqldb
+    secrets:
+      - dbusername
+      - dbpassword
+    depends_on:
+      - "mysqlapp"
+    links:
+      - mysqlapp
+    volumes:
+      - phpappvolume:/var/www
+volumes:
+  phpappvolume:
+secrets:
+  dbusername:
+    external: true
+  dbpassword:
+    external: true
