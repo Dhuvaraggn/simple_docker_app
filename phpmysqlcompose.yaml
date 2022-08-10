@@ -10,6 +10,8 @@ services:
       - MYSQL_ROOT_PASSWORD=root
     volumes:
       - ~/Downloads/docker-storage/mysql:/var/lib/mysql
+    networks:
+      - mysql-network
   phpapp:
     image : "phpapp"
     deploy:
@@ -30,6 +32,9 @@ services:
       - mysqlapp
     volumes:
       - phpappvolume:/var/www
+    networks:
+      - php-network
+      - mysql-network
 volumes:
   phpappvolume:
 secrets:
@@ -37,3 +42,8 @@ secrets:
     external: true
   dbpassword:
     external: true
+networks:
+  php-network:
+    driver: overlay
+  mysql-network:
+    driver: overlay
