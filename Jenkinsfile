@@ -5,6 +5,11 @@ pipeline {
     {
       steps{
         echo 'building the application'
+        nodejs('node-18-7')
+        {
+          sh 'npm -v'
+          sh 'angular -v'
+        }
       }
     }
     stage("test")
