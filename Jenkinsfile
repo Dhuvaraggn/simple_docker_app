@@ -8,7 +8,7 @@ pipeline {
         nodejs('node-18-7')
         {
           sh 'npm -v'
-          sh 'angular -v'
+          sh 'yarn -v'
         }
       }
     }
