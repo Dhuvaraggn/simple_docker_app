@@ -1,6 +1,7 @@
 FROM node:alpine3.16
 WORKDIR /usr/src/app
-COPY . .
+COPY ./package.json .
+COPY ./server.js .
 RUN npm install
-EXPOSE 8080
+EXPOSE 8000
 CMD ["node", "server.js"]
