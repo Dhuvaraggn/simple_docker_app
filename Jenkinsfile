@@ -9,7 +9,7 @@ pipeline{
     {
       steps{
         echo "build started"
-        echo ${env.dockerImage}
+        echo "${env.dockerImage}"
       }
     }
     stage("push")
