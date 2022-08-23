@@ -1,5 +1,9 @@
 pipeline{
-   agent any
+   agent {
+      docker {
+         image 'node:alpine3.16'
+      }
+   }
   environment
   {
     dockerImage = "jenkins-training"
