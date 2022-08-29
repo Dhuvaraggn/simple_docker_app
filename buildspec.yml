@@ -1,0 +1,15 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo "started building the docker image"
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 877969058937.dkr.ecr.us-east-1.amazonaws.com
+  build:
+    commands:
+      - docker build -t jenkins-training .
+      - docker tag jenkins-training:latest 877969058937.dkr.ecr.us-east-1.amazonaws.com/jenkins-training:latest
+  post_build:
+    commands:
+      - echo "build succeed"
+      - docker push 877969058937.dkr.ecr.us-east-1.amazonaws.com/jenkins-training:latest
